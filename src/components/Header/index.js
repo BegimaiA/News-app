@@ -14,9 +14,9 @@ const Header = () => {
                 </Link>
             </div>
             <div>
-                <Link to="/news" className="me-3 text-decoration-none text-black"> News </Link>
-                <Link to="/auth" className="me-3 text-decoration-none text-black"> Sign in </Link>
-                <Link to="/register" className="me-3 text-decoration-none text-black"> Register </Link>
+                <Link to="/news" className="me-3 text-decoration-none text-black fs-4"> News </Link>
+                <Link to="/auth" className="me-3 text-decoration-none text-black fs-4"> Sign in </Link>
+                <Link to="/register" className="me-3 text-decoration-none text-black fs-4"> Register </Link>
             </div>
         </Navbar>
     );
