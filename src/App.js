@@ -7,7 +7,7 @@ function App() {
     return (
         <Router>
             <Route exact path="/"> <Homepage/> </Route>
-            <Route path="/news"> <News/> </Route>
+            <Route exact path="/news"> <News/> </Route>
             <Route path="/news/:id"> <NewsDetails/> </Route>
         </Router>
     );
