@@ -25,7 +25,7 @@ const Register = () => {
                             <Form.Label>Confirm Password</Form.Label>
                             <Form.Control type="password" placeholder="Password" />
                         </Form.Group>
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" type="submit" className="mb-3">
                             Submit
                         </Button>
                     </Form>

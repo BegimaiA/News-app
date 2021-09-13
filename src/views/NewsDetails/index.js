@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom"
 import axios from "axios";
-import {Row, Col, Container} from "react-bootstrap";
+import {Row, Col, Container, FormControl, FloatingLabel, Form, Button} from "react-bootstrap";
 import Layout from "../../components/Layout";
 
 
@@ -28,6 +28,19 @@ const NewsDetails = () => {
                      <p>Date: {newsDetails.date}</p>
                  </Col>
              </Row>
+             <h6 className="mt-3">Comments:</h6>
+             <p className="fs-5">{newsDetails.commentAuthor}</p>
+             <p>{newsDetails.comment}</p>
+             <FloatingLabel controlId="floatingTextarea2" label="Comments">
+                 <Form.Control
+                     as="textarea"
+                     placeholder="Leave a comment here"
+                     style={{ height: '100px', width: "550px" }}
+                 />
+             </FloatingLabel>
+             <Button variant="primary" type="submit" className="mt-3 mb-3">
+                 Submit
+             </Button>
          </Container>
      </Layout>
     );
