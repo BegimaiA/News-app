@@ -4,9 +4,10 @@
 .header{
    background-color: #00c0fb;
 }
-.header-link:hover{
-   background-color: dodgerblue;
+
+.header-link{
+    color: #000;
 }
-.active{
-  font-weight: bold;
+a.header-link.me-3.text-decoration-none.fs-4.active{
+    color: white;
 }

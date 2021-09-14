@@ -3,17 +3,31 @@ import {useParams} from "react-router-dom"
 import axios from "axios";
 import {Row, Col, Container, FormControl, FloatingLabel, Form, Button} from "react-bootstrap";
 import Layout from "../../components/Layout";
+import Spinner from "../../components/Spinner";
+import NoMatch from "../../components/NoMatch";
 
 
 const NewsDetails = () => {
     const [newsDetails, setNewsDetails] = useState({})
+    const [loading, setLoading] = useState(true)
+    const [notFound, setNotFound] = useState(false)
     const params = useParams()
     useEffect(() => {
     axios(`https://6115f1038f38520017a3863c.mockapi.io/posts/${params.id}`)
-        .then((res)=>setNewsDetails(res.data))
+        .then((res)=>{
+            setNewsDetails(res.data)
+        })
+        .catch(()=>setNotFound(true))
+        .finally(()=>setLoading(false))
 
     }, [])
 
+    if (loading) {
+        return <Spinner/>
+    }
+    if (notFound) {
+        return <NoMatch/>
+    }
     return (
      <Layout>
          <Container>
