@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom"
 import axios from "axios";
-import {Row, Col, Container, FormControl, FloatingLabel, Form, Button} from "react-bootstrap";
+import {Row, Col, Container, FloatingLabel, Form, Button} from "react-bootstrap";
 import Layout from "../../components/Layout";
 import Spinner from "../../components/Spinner";
 import NoMatch from "../../components/NoMatch";
@@ -20,7 +20,7 @@ const NewsDetails = () => {
         .catch(()=>setNotFound(true))
         .finally(()=>setLoading(false))
 
-    }, [])
+    }, [params.id])
 
     if (loading) {
         return <Spinner/>

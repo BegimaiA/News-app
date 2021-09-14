@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Layout from "../../components/Layout";
 import axios from "axios";
-import {Col, Container, Row} from "react-bootstrap";
+import { Container} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import OwlCarousel from 'react-owl-carousel';
 import 'owl.carousel/dist/assets/owl.carousel.css';
