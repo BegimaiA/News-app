@@ -6,6 +6,9 @@
     flex-direction: column;
     justify-content: space-between;
 }
+.main{
+    flex: 1;
+}
 *{
     margin: 0;
     padding: 0;
@@ -13,6 +16,7 @@
 }
 body{
     font-family: "PT Sans", sans-serif;
+    overflow-x: hidden;
 }
 a {
     text-decoration: none;
@@ -23,8 +27,3 @@ img{
     object-fit: cover;
 }
 
-.main{
-    flex: 1;
-
-    margin-top: 100px;
-}

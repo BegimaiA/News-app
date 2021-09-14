@@ -4,6 +4,9 @@ import axios from "axios"
 import Layout from "../../components/Layout";
 import {Container, Row, Col} from "react-bootstrap";
 
+
+
+
 const News = () => {
     const [posts, setPosts] = useState([])
     useEffect(()=>{
