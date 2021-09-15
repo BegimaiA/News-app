@@ -5,7 +5,6 @@ import Layout from "../Layout";
 const SignIn = () => {
     return (
      <Layout>
-
          <Row className="mt-5">
              <Col md={9}>
                  <Form className="offset-6">
