@@ -36,8 +36,8 @@ const Header = () => {
                 <div className=" d-flex justify-content-between p-3 mb-5">
                     <div>
                         <Link to="/" className="header-link    text-decoration-none">
-                            <FontAwesomeIcon icon={faBookReader} className=" header-icon text-primary fs-1 text-black"/>
-                            <span className="text-black fs-5 fw-bold"> USA Today</span>
+                            <FontAwesomeIcon icon={faBookReader} className=" header-icon text-primary fs-1 text-white"/>
+                            <span className=" fs-5 fw-bold"> USA Today</span>
                         </Link>
                     </div>
                     <div>
@@ -47,8 +47,8 @@ const Header = () => {
                                  className=" header-link     me-3 text-decoration-none  fs-4"> News </NavLink>
                         <NavLink to="/auth" className=" header-link     me-3 text-decoration-none  fs-4"> Sign
                             in </NavLink>
-                        <NavLink to="/register"
-                                 className=" header-link      me-3 text-decoration-none  fs-4"> Register </NavLink>
+                        <NavLink to="/register" className=" header-link      me-3 text-decoration-none  fs-4"> Register </NavLink>
+                        <NavLink to="/applications" className=" header-link      me-3 text-decoration-none  fs-4"> Applications </NavLink>
                         <button type="button" onClick={() => setIsOpen(true)} className="btn btn-success"> Submit an
                             application
                         </button>

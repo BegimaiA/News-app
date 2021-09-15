@@ -5,6 +5,7 @@ import NewsDetails from "./views/NewsDetails";
 import SignIn from "./components/SignIn";
 import Register from "./components/Register";
 import NoMatch from "./components/NoMatch";
+import Applications from "./views/Applications"
 
 function App() {
     return (
@@ -15,6 +16,7 @@ function App() {
                 <Route path="/news/:id"> <NewsDetails/> </Route>
                 <Route exact path="/auth"> <SignIn/> </Route>
                 <Route exact path="/register"> <Register/> </Route>
+                <Route exact path="/applications"> <Applications/> </Route>
                 <Route exact path="*">
                     <NoMatch />
                 </Route>

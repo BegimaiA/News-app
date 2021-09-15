@@ -2,14 +2,19 @@
    color: black;
 }
 .header{
-   background-color: #00c0fb;
+   background-color: #afcbff;
+    height: 90px;
+    color: #fff;
 }
 
 .header-link{
-    color: #000;
+    color: #fff;
+}
+.header-link:hover{
+    color: #545677;
 }
 a.header-link.me-3.text-decoration-none.fs-4.active{
-    color: white;
+    color: #03254e;
 }
 .modal-window{
     position: fixed;
