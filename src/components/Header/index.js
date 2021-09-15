@@ -3,10 +3,33 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBookReader} from "@fortawesome/free-solid-svg-icons";
 import {Link, NavLink} from "react-router-dom";
 import "./header.css"
+import {Button, Form} from "react-bootstrap";
+import axios from "axios";
 
 
 const Header = () => {
+    const initial = {name: "", email: "", phone: ""}
     const [isOpen, setIsOpen] = useState(false)
+    const [callback, setCallback] =useState(initial)
+    const [sentSuccess, setSentSuccess] = useState(false)
+
+    const handleInput = (e) => {
+       setCallback({...callback, [e.target.name]: e.target.value})
+    }
+    const handleSubmit =(e) => {
+        e.preventDefault()
+        axios.post("https://6115f1038f38520017a3863c.mockapi.io/callback", callback)
+            .then(()=>{
+                setSentSuccess(true)
+                setTimeout(()=>{
+                    setIsOpen(false)
+                    setSentSuccess(false)
+                    setCallback(initial)
+                }, 2000)
+            })
+    }
+
+
     return (
         <>
         <header className="header">
@@ -30,9 +53,37 @@ const Header = () => {
             {
                 isOpen &&  <div className="modal-window">
                         <div className="modal-cont">
-                        <h2 className="mt-3">Modal content</h2>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        <button className="close-modal mt-2" onClick={()=> setIsOpen(false)}>✖</button>
+
+                            {
+                                sentSuccess ? <h4>"Successfully sent"</h4> : <Form className="" onSubmit={handleSubmit}>
+                                    <Form.Group className="mb-3 " controlId="formBasicName">
+                                        <Form.Label htmlFor="name">Name</Form.Label>
+                                        <Form.Control id="name"  type="text" placeholder="Enter name" name="name" required  value={callback.name} onChange={handleInput}/>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3 " controlId="formBasicEmail">
+                                        <Form.Label htmlFor="email">Email address</Form.Label>
+                                        <Form.Control  id="email" name="email" type="email" placeholder="Enter email"  required value={callback.email} onChange={handleInput} />
+                                        <Form.Text className="text-muted">
+                                            We'll never share your email with anyone else.
+                                        </Form.Text>
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3" controlId="formBasicPhone">
+                                        <Form.Label htmlFor="phone">Phone number</Form.Label>
+                                        <Form.Control id="phone" name="phone"  type="text" placeholder="phone number"   required value={callback.phone} onChange={handleInput} />
+                                    </Form.Group>
+                                    <Button variant="primary" type="submit" className="mb-4">
+                                        Submit
+                                    </Button>
+                                </Form>
+                            }
+
+
+                        <button className="close-modal mt-2" onClick={()=> {
+                            setIsOpen(false)
+                            setSentSuccess((false))}
+                        }>✖</button>
                     </div>
                 </div>
             }
