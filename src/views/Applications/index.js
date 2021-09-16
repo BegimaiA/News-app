@@ -3,16 +3,12 @@ import axios from "axios";
 import Layout from "../../components/Layout";
 import {Container} from "react-bootstrap";
 
-
-
 const Applications = () => {
     const [applications, setApplications] = useState([])
     useEffect(()=> {
         axios("https://6115f1038f38520017a3863c.mockapi.io/callback")
             .then(({data})=>setApplications(data))
     })
-
-
     return (
         <Layout>
            <Container>

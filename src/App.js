@@ -6,6 +6,7 @@ import SignIn from "./components/SignIn";
 import Register from "./components/Register";
 import NoMatch from "./components/NoMatch";
 import Applications from "./views/Applications"
+import Students from "./views/Students";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route exact path="/auth"> <SignIn/> </Route>
                 <Route exact path="/register"> <Register/> </Route>
                 <Route exact path="/applications"> <Applications/> </Route>
+                <Route exact path="/students"> <Students/> </Route>
                 <Route exact path="*">
                     <NoMatch />
                 </Route>

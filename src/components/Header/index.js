@@ -48,7 +48,8 @@ const Header = () => {
                         <NavLink to="/auth" className=" header-link     me-3 text-decoration-none  fs-4"> Sign
                             in </NavLink>
                         <NavLink to="/register" className=" header-link      me-3 text-decoration-none  fs-4"> Register </NavLink>
-                        <NavLink to="/applications" className=" header-link      me-3 text-decoration-none  fs-4"> Applications </NavLink>
+                        <NavLink to="/applications" className=" header-link   me-3 text-decoration-none  fs-4"> Applications </NavLink>
+                        <NavLink to="/students" className=" header-link me-3 text-decoration-none  fs-4"> Students </NavLink>
                         <button type="button" onClick={() => setIsOpen(true)} className="btn btn-success"> Submit an
                             application
                         </button>
