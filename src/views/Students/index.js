@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faEdit, faTrash, faWindowClose} from "@fortawesome/free-solid-svg-icons";
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
+import "./students.css";
 
 const Students = () => {
     const [students, setStudents] = useState([])
@@ -79,9 +80,11 @@ const Students = () => {
     </tr>
     )}
 </tbody>
-        <button className="btn btn-success my-3 d-block ms-auto" onClick={()=>setIsOpen(true)} >Add contact</button>
+
+           <button className="btn btn-success my-3 d-block ms-auto " onClick={()=>setIsOpen(true)} >Add contact</button>
+
     </table>
-                <Modal className="modal-students"
+                <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
                     contentLabel="Example Modal"

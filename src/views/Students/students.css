@@ -1,0 +1,8 @@
+.ReactModalPortal{
+    position: relative;
+}
+.close-btn{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
