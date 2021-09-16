@@ -10,11 +10,21 @@ import { useForm } from 'react-hook-form';
 const Students = () => {
     const [students, setStudents] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        axios.post("https://6115f1038f38520017a3863c.mockapi.io/students", data)
+        .then(({data:student})=>{
+            setStudents([...students, student])
+            setIsOpen(false)
+                reset()
+
+        })
+    }
 
     useEffect(() => {
         axios("https://6115f1038f38520017a3863c.mockapi.io/students")
             .then(({data}) => setStudents(data))
-    })
+    },[])
     function openModal() {
         setIsOpen(true);
     }
@@ -22,6 +32,10 @@ const Students = () => {
         setIsOpen(false);
     }
 
+    const deleteStudent = (id) => {
+        axios.delete(`https://6115f1038f38520017a3863c.mockapi.io/students/${id}`)
+            .then(({data})=>setStudents(students.filter(item => item.id !== id)))
+    }
 
     return (
         <Layout>
@@ -29,6 +43,7 @@ const Students = () => {
     <table  border="1"  className="table  table-bordered table-striped my-3" cellPadding="15"  width="600px" height="50px" cellSpacing="0">
         <thead>
         <tr valign="center">
+            <th>#</th>
             <th>Name</th>
             <th>Phone</th>
             <th>Contract</th>
@@ -42,8 +57,9 @@ const Students = () => {
         </thead>
 <tbody>
 {
-    students.map(el=>
+    students.map((el, idx)=>
     <tr>
+        <td>{idx+1}</td>
         <td>{el.name}</td>
         <td>{el.phone}</td>
         <td>{el.contract}</td>
@@ -56,7 +72,7 @@ const Students = () => {
             <button type="button" className="btn btn-sm btn-outline-warning me-2" >
                 <FontAwesomeIcon icon={faEdit}/>
             </button>
-            <button type="button" className="btn btn-sm btn-outline-danger">
+            <button type="button" className="btn btn-sm btn-outline-danger" onClick={()=>deleteStudent(el.id)}>
                 <FontAwesomeIcon icon={faTrash}/>
             </button>
         </td>
@@ -65,45 +81,57 @@ const Students = () => {
 </tbody>
         <button className="btn btn-success my-3 d-block ms-auto" onClick={()=>setIsOpen(true)} >Add contact</button>
     </table>
-                <Modal
+                <Modal className="modal-students"
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
                     contentLabel="Example Modal"
                 >
+                    <button onClick={closeModal} className=" close-btn  btn btn-sm"><FontAwesomeIcon icon={faWindowClose}/></button>
                     <h3>Fill the form</h3>
-                        <Form>
+                        <Form onSubmit={handleSubmit(onSubmit)}>
+
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridName">
                                     <Form.Label htmlFor="name">Name</Form.Label>
-                                    <Form.Control  id="name" name="name"   type="text" placeholder="Enter name" />
+                                    <Form.Control  id="name"   type="text" placeholder="Enter name"
+                                                   {...register("name", { required: true })}/>
+                                    {errors.name && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridPhone">
                                     <Form.Label htmlFor="phone">Phone</Form.Label>
-                                    <Form.Control  id="phone" name="phone" type="text" placeholder="Phone" />
+                                    <Form.Control  id="phone"  type="text" placeholder="Phone"
+                                                   {...register("phone", { required: true })}/>
+                                    {errors.phone && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
                             </Row>
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridContract">
                                     <Form.Label htmlFor="contract">Contract</Form.Label>
-                                    <Form.Control id="contract" name="contract"  type="text" placeholder="Sum" />
+                                    <Form.Control id="contract"   type="text" placeholder="Sum"
+                                                  {...register("contract", { required: true })}/>
+                                    {errors.contract && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridPaid">
                                     <Form.Label htmlFor="paid">Paid</Form.Label>
-                                    <Form.Control  id="paid"  name="paid"  type="text" placeholder="Amount" />
+                                    <Form.Control  id="paid"  type="text" placeholder="Amount"
+                                                   {...register("paid", { required: true })}/>
+                                    {errors.paid && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
                             </Row>
 
                             <Form.Group className="mb-3" controlId="formGridLaptop">
                                 <Form.Label htmlFor="laptop">Laptop</Form.Label>
-                                <Form.Control  id="laptop" name="laptop" placeholder="Need or not" />
+                                <Form.Control  id="laptop"  placeholder="Need or not"
+                                               {...register("laptop", { required: true })}/>
+                                {errors.laptop && <span className="text-danger">This field is required</span>}
                             </Form.Group>
 
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridGroup">
                                     <Form.Label>Group</Form.Label>
-                                    <Form.Select defaultValue="Choose...">
+                                    <Form.Select defaultValue="Choose..." {...register("group", { required: true })}>
                                         <option>Choose...</option>
                                         <option>Morning</option>
                                         <option>Evening</option>
@@ -112,7 +140,7 @@ const Students = () => {
 
                                 <Form.Group as={Col} controlId="formGridStatus">
                                     <Form.Label>Status</Form.Label>
-                                    <Form.Select defaultValue="Choose...">
+                                    <Form.Select defaultValue="Choose..." {...register("status", { required: true })}>
                                         <option>Choose...</option>
                                         <option>Active</option>
                                         <option>Finished</option>
@@ -120,16 +148,20 @@ const Students = () => {
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridGender">
                                     <Form.Label>Gender</Form.Label>
-                                    <Form.Select defaultValue="Choose...">
+                                    <Form.Select defaultValue="Choose..." {...register("gender", { required: true })}>
                                         <option>Choose...</option>
                                         <option>Male</option>
                                         <option>Female</option>
                                     </Form.Select>
                                 </Form.Group>
                             </Row>
-
-                            <button onClick={closeModal} className="btn btn-sm"><FontAwesomeIcon icon={faWindowClose}/></button>
-                            <button className="btn btn-outline-success">Add </button>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+                                <Form.Label>Comment</Form.Label>
+                                <Form.Control as="textarea" rows={3}
+                                              {...register("comment", { required: true })}
+                                />
+                            </Form.Group>
+                            <button  className="btn btn-outline-success">Add </button>
                         </Form>
                 </Modal>
             </Container>
