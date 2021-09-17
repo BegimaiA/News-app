@@ -81,7 +81,7 @@ const Students = () => {
     )}
 </tbody>
     </table>
-                <button className="btn btn-success add=btn " onClick={openModal} >Add contact</button>
+                <button className="btn btn-success  d-block ms-auto" onClick={openModal} >Add contact</button>
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
@@ -132,28 +132,28 @@ const Students = () => {
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridGroup">
                                     <Form.Label>Group</Form.Label>
-                                    <Form.Select defaultValue="Choose..." {...register("group", { required: true })}>
-                                        <option>Choose...</option>
+                                    <Form.Select  {...register("group", { required: true })}>
                                         <option>Morning</option>
                                         <option>Evening</option>
                                     </Form.Select>
+                                    {errors.group && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
 
                                 <Form.Group as={Col} controlId="formGridStatus">
                                     <Form.Label>Status</Form.Label>
-                                    <Form.Select defaultValue="Choose..." {...register("status", { required: true })}>
-                                        <option>Choose...</option>
+                                    <Form.Select  {...register("status", { required: true })}>
                                         <option>Active</option>
                                         <option>Finished</option>
                                     </Form.Select>
+                                    {errors.status && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridGender">
                                     <Form.Label>Gender</Form.Label>
-                                    <Form.Select defaultValue="Choose..." {...register("gender", { required: true })}>
-                                        <option>Choose...</option>
+                                    <Form.Select  {...register("gender", { required: true })}>
                                         <option>Male</option>
                                         <option>Female</option>
                                     </Form.Select>
+                                    {errors.gender && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
                             </Row>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
@@ -161,6 +161,7 @@ const Students = () => {
                                 <Form.Control as="textarea" rows={3}
                                               {...register("comment", { required: true })}
                                 />
+                                {errors.comment && <span className="text-danger">This field is required</span>}
                             </Form.Group>
                             <button  className="btn btn-outline-success">Add </button>
                         </Form>
