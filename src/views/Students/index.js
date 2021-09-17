@@ -7,11 +7,13 @@ import {faEdit, faTrash, faWindowClose} from "@fortawesome/free-solid-svg-icons"
 import Modal from 'react-modal';
 import { useForm } from 'react-hook-form';
 import "./students.css";
+import StudentsItem from "../StudentsItem";
 
 const Students = () => {
     const [students, setStudents] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
     const onSubmit = data => {
         axios.post("https://6115f1038f38520017a3863c.mockapi.io/students", data)
         .then(({data:student})=>{
@@ -37,6 +39,10 @@ const Students = () => {
         axios.delete(`https://6115f1038f38520017a3863c.mockapi.io/students/${id}`)
             .then(({data})=>setStudents(students.filter(item => item.id !== id)))
     }
+    const updateStudent = (id, data) => {
+        axios.put(`https://6115f1038f38520017a3863c.mockapi.io/students/${id}`, data)
+            .then(({data})=>setStudents(students.map(item => item.id === id? {...item, ...data} : item)))
+    }
 
     return (
         <Layout>
@@ -59,25 +65,7 @@ const Students = () => {
 <tbody>
 {
     students.map((el, idx)=>
-    <tr>
-        <td>{idx+1}</td>
-        <td>{el.name}</td>
-        <td>{el.phone}</td>
-        <td>{el.contract}</td>
-        <td>{el.paid}</td>
-        <td>{el.laptop}</td>
-        <td>{el.group}</td>
-        <td>{el.comment}</td>
-        <td>{el.status}</td>
-        <td>
-            <button type="button" className="btn btn-sm btn-outline-warning me-2" >
-                <FontAwesomeIcon icon={faEdit}/>
-            </button>
-            <button type="button" className="btn btn-sm btn-outline-danger" onClick={()=>deleteStudent(el.id)}>
-                <FontAwesomeIcon icon={faTrash}/>
-            </button>
-        </td>
-    </tr>
+  <StudentsItem el={el} idx={idx} deleteStudent={deleteStudent} updateStudent={updateStudent}/>
     )}
 </tbody>
     </table>
