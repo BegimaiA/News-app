@@ -80,16 +80,14 @@ const Students = () => {
     </tr>
     )}
 </tbody>
-
-           <button className="btn btn-success my-3 d-block ms-auto " onClick={()=>setIsOpen(true)} >Add contact</button>
-
     </table>
+                <button className="btn btn-success add=btn " onClick={openModal} >Add contact</button>
                 <Modal
                     isOpen={modalIsOpen}
                     onRequestClose={closeModal}
                     contentLabel="Example Modal"
                 >
-                    <button onClick={closeModal} className=" close-btn  btn btn-sm"><FontAwesomeIcon icon={faWindowClose}/></button>
+                    <button onClick={closeModal} className=" close-btn  btn"><FontAwesomeIcon icon={faWindowClose}/></button>
                     <h3>Fill the form</h3>
                         <Form onSubmit={handleSubmit(onSubmit)}>
 
@@ -97,7 +95,7 @@ const Students = () => {
                                 <Form.Group as={Col} controlId="formGridName">
                                     <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control  id="name"   type="text" placeholder="Enter name"
-                                                   {...register("name", { required: true })}/>
+                                                   {...register("name", { required: true, minLength:3 })}/>
                                     {errors.name && <span className="text-danger">This field is required</span>}
                                 </Form.Group>
 
