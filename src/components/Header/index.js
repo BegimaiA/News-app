@@ -28,7 +28,6 @@ const Header = () => {
                 }, 2000)
             })
     }
-
     return (
         <>
             <header className="header">
