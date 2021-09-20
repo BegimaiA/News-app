@@ -10,18 +10,28 @@ import "./students.css";
 import StudentsItem from "../StudentsItem";
 
 const Students = () => {
+    Modal.setAppElement('#root');
     const [students, setStudents] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const [img, setImg] = useState({})
 
     const onSubmit = data => {
+        data.image = img.url
+        delete data.file
         axios.post("https://6115f1038f38520017a3863c.mockapi.io/students", data)
         .then(({data:student})=>{
             setStudents([...students, student])
             setIsOpen(false)
                 reset()
-
         })
+    }
+    const handleFile =(e) => {
+        const formData = new FormData()
+        formData.append("file", e.target.files[0] )
+        formData.append("upload_preset", "bishkek" )
+        axios.post("https://api.cloudinary.com/v1_1/begimai/image/upload", formData)
+            .then(({data})=>setImg(data))
     }
 
     useEffect(() => {
@@ -78,8 +88,11 @@ const Students = () => {
                     <button onClick={closeModal} className=" close-btn  btn"><FontAwesomeIcon icon={faWindowClose}/></button>
                     <h3>Fill the form</h3>
                         <Form onSubmit={handleSubmit(onSubmit)}>
-
                             <Row className="mb-3">
+                                <input type="file"
+                                       {...register("file", { required: true })}
+                                       onChange={handleFile}/>
+                                {errors.file && <span className="text-danger">This field is required</span>}
                                 <Form.Group as={Col} controlId="formGridName">
                                     <Form.Label htmlFor="name">Name</Form.Label>
                                     <Form.Control  id="name"   type="text" placeholder="Enter name"
